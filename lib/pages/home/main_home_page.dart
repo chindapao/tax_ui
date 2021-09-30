@@ -30,8 +30,49 @@ class _MainHomePageState extends State<MainHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: const <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'Drawer Header',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.message),
+              title: Text('Messages'),
+            ),
+            ListTile(
+              leading: Icon(Icons.account_circle),
+              title: Text('Profile'),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        leading: Container(
+          margin: const EdgeInsets.all(10.0),
+          child: Builder(
+            builder: (context) => InkWell(
+              borderRadius: BorderRadius.circular(25.0),
+              child: const Icon(Icons.menu, size: 24.0, color: white),
+              onTap: () => Scaffold.of(context).openDrawer(),
+            ),
+          ),
+        ),
+        automaticallyImplyLeading: true,
         backgroundColor: blue,
         centerTitle: true,
         title: Text(
@@ -42,8 +83,22 @@ class _MainHomePageState extends State<MainHomePage> {
                   : _selectedIndex == 2
                       ? "ប្រវត្តិទាំងអស់"
                       : "ព័ត៏មានផ្ទាល់ខ្លួន",
-          style: TextStyle(fontFamily: "OdorMeanChey", fontSize: 14),
+          style: const TextStyle(fontFamily: "OdorMeanChey", fontSize: 14),
         ),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 0.0,
+              horizontal: 16.0,
+            ),
+            child: GestureDetector(
+              onTap: () {
+                onSettingPressed(context);
+              },
+              child: const Icon(Icons.settings),
+            ),
+          ),
+        ],
       ),
       body: _widgetOption.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
@@ -111,4 +166,50 @@ class _MainHomePageState extends State<MainHomePage> {
       ),
     );
   }
+}
+
+onSettingPressed(BuildContext context) async {
+  showModalBottomSheet(
+    isScrollControlled: false,
+    isDismissible: true,
+    backgroundColor: Colors.transparent,
+    context: context,
+    builder: (widgetBuilder) {
+      return Container(
+        decoration: const BoxDecoration(
+            color: white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            )),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 20,
+                horizontal: 20,
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    "Hello",
+                  ),
+                  Text(
+                    "Hello",
+                  ),
+                  Text(
+                    "Hello",
+                  ),
+                  // Text('$nlist'),
+                ],
+              ),
+            )
+          ],
+        ),
+      );
+    },
+  );
 }

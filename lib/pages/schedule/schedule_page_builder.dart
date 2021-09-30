@@ -1,8 +1,11 @@
 import 'dart:convert';
 
+import 'package:consumer_app/model/entities/users_info.dart';
+import 'package:consumer_app/pages/schedule/card_view_list_details.dart';
 import 'package:consumer_app/utils/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:page_transition/page_transition.dart';
 
 class SchedulePageBuilder extends StatefulWidget {
   const SchedulePageBuilder({Key? key}) : super(key: key);
@@ -28,12 +31,6 @@ class _SchedulePageBuilderState extends State<SchedulePageBuilder> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    getAllUsers();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -43,7 +40,7 @@ class _SchedulePageBuilderState extends State<SchedulePageBuilder> {
             hoverColor: Colors.pink,
             borderRadius: BorderRadius.circular(25.0),
             child:
-                const Icon(Icons.arrow_back_outlined, size: 18.0, color: white),
+                const Icon(Icons.arrow_back_outlined, size: 24.0, color: white),
             onTap: () {
               Navigator.pop(context);
             },
@@ -58,7 +55,7 @@ class _SchedulePageBuilderState extends State<SchedulePageBuilder> {
         ),
       ),
       body: FutureBuilder<List<UserInfo>>(
-        future: getAllUsers(), // async work
+        future: getAllUsers(),
         builder:
             (BuildContext context, AsyncSnapshot<List<UserInfo>> snapshot) {
           switch (snapshot.connectionState) {
@@ -67,23 +64,13 @@ class _SchedulePageBuilderState extends State<SchedulePageBuilder> {
                 child: CircularProgressIndicator(),
               );
             case ConnectionState.done:
-              return ListView.builder(
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (context, i) {
-                    var nList = snapshot.data![i];
-                    return GestureDetector(
-                      child: Card(
-                        child: ListTile(
-                          title: Text(nList.title),
-                        ),
-                      ),
-                    );
-                  });
+              return CardViewList(nListDetails: snapshot.data!);
             default:
-              if (snapshot.hasError)
+              if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
-              else
+              } else {
                 return Text('Result: ${snapshot.data}');
+              }
           }
         },
       ),
@@ -91,53 +78,32 @@ class _SchedulePageBuilderState extends State<SchedulePageBuilder> {
   }
 }
 
-class UserConvert {
-  UserConvert({
-    required this.userInfo,
-  });
-  late final List<UserInfo> userInfo;
+// ignore: must_be_immutable
+class CardViewList extends StatelessWidget {
+  List nListDetails = [];
+  CardViewList({Key? key, required this.nListDetails}) : super(key: key);
 
-  UserConvert.fromJson(Map<String, dynamic> json) {
-    userInfo =
-        List.from(json['user_info']).map((e) => UserInfo.fromJson(e)).toList();
-  }
-
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['user_info'] = userInfo.map((e) => e.toJson()).toList();
-    return _data;
-  }
-}
-
-class UserInfo {
-  UserInfo({
-    required this.albumId,
-    required this.id,
-    required this.title,
-    required this.url,
-    required this.thumbnailUrl,
-  });
-  late final int albumId;
-  late final int id;
-  late final String title;
-  late final String url;
-  late final String thumbnailUrl;
-
-  UserInfo.fromJson(Map<String, dynamic> json) {
-    albumId = json['albumId'];
-    id = json['id'];
-    title = json['title'];
-    url = json['url'];
-    thumbnailUrl = json['thumbnailUrl'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['albumId'] = albumId;
-    _data['id'] = id;
-    _data['title'] = title;
-    _data['url'] = url;
-    _data['thumbnailUrl'] = thumbnailUrl;
-    return _data;
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: nListDetails.length,
+      itemBuilder: (context, i) {
+        var nList = nListDetails[i];
+        return Card(
+          child: ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  type: PageTransitionType.rightToLeftWithFade,
+                  child: CardViewListDetails(title: nList.title),
+                ),
+              );
+            },
+            title: Text(nList.title),
+          ),
+        );
+      },
+    );
   }
 }

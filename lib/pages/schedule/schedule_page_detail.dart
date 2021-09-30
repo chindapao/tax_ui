@@ -48,13 +48,6 @@ class SchedulePageDetail extends StatefulWidget {
 
 class _SchedulePageDetailState extends State<SchedulePageDetail> {
   @override
-  void initState() {
-    super.initState();
-    print("=======================");
-    print(widget.age);
-  }
-
-  @override
   Widget build(BuildContext context) {
     var nList = widget;
     return Scaffold(
@@ -65,7 +58,7 @@ class _SchedulePageDetailState extends State<SchedulePageDetail> {
             hoverColor: Colors.pink,
             borderRadius: BorderRadius.circular(25.0),
             child:
-                const Icon(Icons.arrow_back_outlined, size: 18.0, color: white),
+                const Icon(Icons.arrow_back_outlined, size: 24.0, color: white),
             onTap: () {
               Navigator.pop(context);
             },
