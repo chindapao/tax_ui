@@ -28,7 +28,7 @@ class _HomePageDetailState extends State<HomePageDetail> {
             hoverColor: Colors.pink,
             borderRadius: BorderRadius.circular(25.0),
             child:
-                const Icon(Icons.arrow_back_outlined, size: 18.0, color: white),
+                const Icon(Icons.arrow_back_outlined, size: 24.0, color: white),
             onTap: () {
               Navigator.pop(context);
             },
