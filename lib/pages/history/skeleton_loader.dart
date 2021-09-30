@@ -44,6 +44,8 @@ class SkeletonLoaderTool extends StatelessWidget {
     StateCapital(name: "Yobe", capital: "Damaturu"),
   ];
 
+  SkeletonLoaderTool({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

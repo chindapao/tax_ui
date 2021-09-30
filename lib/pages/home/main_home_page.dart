@@ -3,6 +3,7 @@ import 'package:consumer_app/pages/home/home_page.dart';
 import 'package:consumer_app/pages/schedule/schedule_page.dart';
 import 'package:consumer_app/pages/settings/setting_page.dart';
 import 'package:consumer_app/utils/app_constant.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MainHomePage extends StatefulWidget {
@@ -36,7 +37,7 @@ class _MainHomePageState extends State<MainHomePage> {
           children: const <Widget>[
             DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: blue,
               ),
               child: Text(
                 'Drawer Header',
@@ -89,7 +90,7 @@ class _MainHomePageState extends State<MainHomePage> {
           Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 0.0,
-              horizontal: 16.0,
+              horizontal: 14.0,
             ),
             child: GestureDetector(
               onTap: () {
@@ -168,13 +169,14 @@ class _MainHomePageState extends State<MainHomePage> {
   }
 }
 
-onSettingPressed(BuildContext context) async {
+onSettingPressed(BuildContext context) {
+  bool _isObscure = true;
   showModalBottomSheet(
     isScrollControlled: false,
     isDismissible: true,
-    backgroundColor: Colors.transparent,
     context: context,
-    builder: (widgetBuilder) {
+    backgroundColor: Colors.transparent,
+    builder: (BuildContext builder) {
       return Container(
         decoration: const BoxDecoration(
             color: white,
@@ -185,27 +187,297 @@ onSettingPressed(BuildContext context) async {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 20,
-                horizontal: 20,
+            Center(
+              child: Container(
+                height: 65.0,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.4),
+                      spreadRadius: 0.0,
+                      blurRadius: 1,
+                      offset: const Offset(0, 1),
+                    ),
+                  ],
+                  color: white,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    const SizedBox(
+                      height: 8.0,
+                      width: 0.0,
+                    ),
+                    Center(
+                      child: Container(
+                        height: 4.0,
+                        width: 45.0,
+                        decoration: BoxDecoration(
+                          color: gray,
+                          borderRadius: BorderRadius.circular(7),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(14, 0, 5.0, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          const Text(
+                            'Description',
+                            style: TextStyle(
+                              color: black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: const SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: Icon(
+                                Icons.close,
+                                size: 30,
+                                color: black,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    "Hello",
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                const SizedBox(width: 0.0, height: 7.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 4.0,
+                    horizontal: 10,
                   ),
-                  Text(
-                    "Hello",
+                  child: Expanded(
+                    child: TextField(
+                      obscureText: _isObscure,
+                      autofocus: true,
+                      cursorColor: gray,
+                      onChanged: (value) {
+                        //Do something with the user input.
+                      },
+                      style: const TextStyle(
+                        fontFamily: "OdorMeanChey",
+                        fontSize: 12,
+                        height: 2.0,
+                      ),
+                      decoration: const InputDecoration(
+                        errorMaxLines: 1,
+                        errorStyle: TextStyle(
+                          fontSize: 12.0,
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.redAccent),
+                        ),
+                        hintStyle: TextStyle(
+                          fontFamily: "OdorMeanChey",
+                          fontSize: 12,
+                        ),
+                        hintText: 'ឈ្មោះ',
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 14.0, horizontal: 14.0),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: gray, width: 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: gray, width: 1.5),
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                      ),
+                    ),
                   ),
-                  Text(
-                    "Hello",
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 4.0,
+                    horizontal: 10,
                   ),
-                  // Text('$nlist'),
-                ],
-              ),
+                  child: Expanded(
+                    child: TextField(
+                      obscureText: _isObscure,
+                      autofocus: true,
+                      cursorColor: gray,
+                      onChanged: (value) {
+                        //Do something with the user input.
+                      },
+                      style: const TextStyle(
+                        fontFamily: "OdorMeanChey",
+                        fontSize: 12,
+                        height: 2.0,
+                      ),
+                      decoration: const InputDecoration(
+                        errorMaxLines: 1,
+                        errorStyle: TextStyle(
+                          fontSize: 12.0,
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.redAccent),
+                        ),
+                        hintStyle: TextStyle(
+                          fontFamily: "OdorMeanChey",
+                          fontSize: 12,
+                        ),
+                        hintText: 'ភេទ',
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 14.0, horizontal: 14.0),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: gray, width: 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: gray, width: 1.5),
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 4.0,
+                    horizontal: 10,
+                  ),
+                  child: Expanded(
+                    child: TextField(
+                      obscureText: _isObscure,
+                      autofocus: true,
+                      cursorColor: gray,
+                      onChanged: (value) {
+                        //Do something with the user input.
+                      },
+                      style: const TextStyle(
+                        fontFamily: "OdorMeanChey",
+                        fontSize: 12,
+                        height: 2.0,
+                      ),
+                      decoration: const InputDecoration(
+                        errorMaxLines: 1,
+                        errorStyle: TextStyle(
+                          fontSize: 12.0,
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.redAccent),
+                        ),
+                        hintStyle: TextStyle(
+                          fontFamily: "OdorMeanChey",
+                          fontSize: 12,
+                        ),
+                        hintText: 'អាយុ',
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 14.0, horizontal: 14.0),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: gray, width: 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: gray, width: 1.5),
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 4.0,
+                    horizontal: 10,
+                  ),
+                  child: Expanded(
+                    child: TextField(
+                      obscureText: _isObscure,
+                      autofocus: true,
+                      cursorColor: gray,
+                      onChanged: (value) {
+                        //Do something with the user input.
+                      },
+                      style: const TextStyle(
+                        fontFamily: "OdorMeanChey",
+                        fontSize: 12,
+                        height: 2.0,
+                      ),
+                      decoration: const InputDecoration(
+                        errorMaxLines: 1,
+                        errorStyle: TextStyle(
+                          fontSize: 12.0,
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.redAccent),
+                        ),
+                        hintStyle: TextStyle(
+                          fontFamily: "OdorMeanChey",
+                          fontSize: 12,
+                        ),
+                        hintText: 'អាស័យដ្ឋាន',
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 14.0, horizontal: 14.0),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: gray, width: 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: gray, width: 1.5),
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 4.0,
+                    horizontal: 10,
+                  ),
+                  child: FlatButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    height: 50,
+                    color: blue,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text(
+                      'ចុចបញ្ចូល',
+                      style: TextStyle(
+                        color: white,
+                        fontFamily: "OdorMeanChey",
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             )
           ],
         ),
