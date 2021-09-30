@@ -63,7 +63,9 @@ class _SchedulePageBuilderState extends State<SchedulePageBuilder> {
             (BuildContext context, AsyncSnapshot<List<UserInfo>> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
-              return const Text('Loading....');
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
             case ConnectionState.done:
               return ListView.builder(
                   itemCount: snapshot.data!.length,
