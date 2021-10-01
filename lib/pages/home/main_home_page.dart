@@ -5,6 +5,24 @@ import 'package:consumer_app/pages/settings/setting_page.dart';
 import 'package:consumer_app/utils/app_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:easy_localization/easy_localization.dart';
+
+class DomainHomePage extends StatelessWidget {
+  const DomainHomePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Localization Demo',
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      home: const MainHomePage(),
+    );
+  }
+}
 
 class MainHomePage extends StatefulWidget {
   const MainHomePage({Key? key}) : super(key: key);
@@ -27,10 +45,347 @@ class _MainHomePageState extends State<MainHomePage> {
     const HistoryPage(),
     const SettingPage()
   ];
+  String dropdownValue = 'English - UK';
+  String icon = "uk.png";
+  var isLang = "";
+
+  void _settingModalBottomSheet(BuildContext context) {
+    var height = 0.48;
+    var width = 1.0;
+    showModalBottomSheet(
+      context: context,
+      isDismissible: true,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Container(
+          height: MediaQuery.of(context).size.height * height,
+          // width: MediaQuery.of(context).size.width * width,
+          decoration: const BoxDecoration(
+            color: white,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(14), topRight: Radius.circular(14)),
+          ),
+          child: Form(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Center(
+                  child: Container(
+                    height: 65.0,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.4),
+                          spreadRadius: 0.0,
+                          blurRadius: 1,
+                          offset: const Offset(0, 1),
+                        ),
+                      ],
+                      color: white,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(14.0),
+                        topRight: Radius.circular(14.0),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        const SizedBox(
+                          height: 8.0,
+                          width: 0.0,
+                        ),
+                        Center(
+                          child: Container(
+                            height: 4.0,
+                            width: 45.0,
+                            decoration: BoxDecoration(
+                              color: gray,
+                              borderRadius: BorderRadius.circular(7),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 0, 5.0, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              const Text(
+                                'ជ្រើសរើសភាសា',
+                                style: TextStyle(
+                                  color: blue,
+                                  fontFamily: "OdorMeanChey",
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const SizedBox(
+                                  width: 50,
+                                  height: 50,
+                                  child: Icon(
+                                    Icons.close,
+                                    size: 30,
+                                    color: blue,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 12.0,
+                    horizontal: 12.0,
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      // TextField(
+                      //   autofocus: true,
+                      //   cursorColor: gray,
+                      //   onChanged: (value) {
+                      //     //Do something with the user input.
+                      //   },
+                      //   style: const TextStyle(
+                      //     fontFamily: "OdorMeanChey",
+                      //     fontSize: 12,
+                      //     height: 2.0,
+                      //   ),
+                      //   decoration: const InputDecoration(
+                      //     errorMaxLines: 1,
+                      //     errorStyle: TextStyle(
+                      //       fontSize: 12.0,
+                      //     ),
+                      //     errorBorder: OutlineInputBorder(
+                      //       borderSide: BorderSide(color: Colors.redAccent),
+                      //     ),
+                      //     hintStyle: TextStyle(
+                      //       fontFamily: "OdorMeanChey",
+                      //       fontSize: 12,
+                      //     ),
+                      //     hintText: 'ឈ្មោះ',
+                      //     contentPadding: EdgeInsets.symmetric(
+                      //         vertical: 14.0, horizontal: 14.0),
+                      //     border: OutlineInputBorder(
+                      //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      //     ),
+                      //     enabledBorder: OutlineInputBorder(
+                      //       borderSide: BorderSide(color: gray, width: 1.0),
+                      //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      //     ),
+                      //     focusedBorder: OutlineInputBorder(
+                      //       borderSide: BorderSide(color: gray, width: 1.5),
+                      //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      //     ),
+                      //   ),
+                      // ),
+                      // const SizedBox(width: 0.0, height: 7.0),
+                      // TextField(
+                      //   autofocus: true,
+                      //   cursorColor: gray,
+                      //   onChanged: (value) {
+                      //     //Do something with the user input.
+                      //   },
+                      //   style: const TextStyle(
+                      //     fontFamily: "OdorMeanChey",
+                      //     fontSize: 12,
+                      //     height: 2.0,
+                      //   ),
+                      //   decoration: const InputDecoration(
+                      //     errorMaxLines: 1,
+                      //     errorStyle: TextStyle(
+                      //       fontSize: 12.0,
+                      //     ),
+                      //     errorBorder: OutlineInputBorder(
+                      //       borderSide: BorderSide(color: Colors.redAccent),
+                      //     ),
+                      //     hintStyle: TextStyle(
+                      //       fontFamily: "OdorMeanChey",
+                      //       fontSize: 12,
+                      //     ),
+                      //     hintText: 'អាយុ',
+                      //     contentPadding: EdgeInsets.symmetric(
+                      //         vertical: 14.0, horizontal: 14.0),
+                      //     border: OutlineInputBorder(
+                      //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      //     ),
+                      //     enabledBorder: OutlineInputBorder(
+                      //       borderSide: BorderSide(color: gray, width: 1.0),
+                      //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      //     ),
+                      //     focusedBorder: OutlineInputBorder(
+                      //       borderSide: BorderSide(color: gray, width: 1.5),
+                      //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      //     ),
+                      //   ),
+                      // ),
+                      // const SizedBox(width: 0.0, height: 7.0),
+                      // TextField(
+                      //   autofocus: true,
+                      //   cursorColor: gray,
+                      //   onChanged: (value) {
+                      //     //Do something with the user input.
+                      //   },
+                      //   style: const TextStyle(
+                      //     fontFamily: "OdorMeanChey",
+                      //     fontSize: 12,
+                      //     height: 2.0,
+                      //   ),
+                      //   decoration: const InputDecoration(
+                      //     errorMaxLines: 1,
+                      //     errorStyle: TextStyle(
+                      //       fontSize: 12.0,
+                      //     ),
+                      //     errorBorder: OutlineInputBorder(
+                      //       borderSide: BorderSide(color: Colors.redAccent),
+                      //     ),
+                      //     hintStyle: TextStyle(
+                      //       fontFamily: "OdorMeanChey",
+                      //       fontSize: 12,
+                      //     ),
+                      //     hintText: 'ថ្ងៃខែឆ្នាំកំណើត',
+                      //     contentPadding: EdgeInsets.symmetric(
+                      //         vertical: 14.0, horizontal: 14.0),
+                      //     border: OutlineInputBorder(
+                      //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      //     ),
+                      //     enabledBorder: OutlineInputBorder(
+                      //       borderSide: BorderSide(color: gray, width: 1.0),
+                      //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      //     ),
+                      //     focusedBorder: OutlineInputBorder(
+                      //       borderSide: BorderSide(color: gray, width: 1.5),
+                      //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      //     ),
+                      //   ),
+                      // ),
+                      // const SizedBox(width: 0.0, height: 7.0),
+                      // FlatButton(
+                      //   shape: RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.circular(8.0),
+                      //   ),
+                      //   height: 50,
+                      //   minWidth: MediaQuery.of(context).size.width * width,
+                      //   color: blue,
+                      //   onPressed: () {
+                      //     Navigator.pop(context);
+                      //   },
+                      //   child: const Text(
+                      //     'ចុចបញ្ចូល',
+                      //     style: TextStyle(
+                      //       color: white,
+                      //       fontFamily: "OdorMeanChey",
+                      //       fontSize: 14,
+                      //     ),
+                      //   ),
+                      // ),
+                      // const SizedBox(width: 0.0, height: 7.0),
+                      FlatButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        height: 50,
+                        minWidth: MediaQuery.of(context).size.width * width,
+                        color: blue,
+                        onPressed: () {
+                          setState(() {
+                            isLang = 'English - UK';
+                            context.locale = const Locale('en', 'UK');
+                          });
+                        },
+                        child: const Text(
+                          'ខ្មែរ',
+                          style: TextStyle(
+                            color: white,
+                            fontFamily: "OdorMeanChey",
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 0.0, height: 7.0),
+                      FlatButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        height: 50,
+                        minWidth: MediaQuery.of(context).size.width * width,
+                        color: blue,
+                        onPressed: () {
+                          setState(() {
+                            isLang = 'Spanish - ES';
+                            context.locale = const Locale('en', 'UK');
+                          });
+                        },
+                        child: const Text(
+                          'កូរ៉េ',
+                          style: TextStyle(
+                            color: white,
+                            fontFamily: "OdorMeanChey",
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 0.0, height: 7.0),
+                      FlatButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        height: 50,
+                        minWidth: MediaQuery.of(context).size.width * width,
+                        color: blue,
+                        onPressed: () {},
+                        child: const Text(
+                          'អងគ្លេស',
+                          style: TextStyle(
+                            color: white,
+                            fontFamily: "OdorMeanChey",
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 0.0, height: 7.0),
+                      FlatButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        height: 50,
+                        minWidth: MediaQuery.of(context).size.width * width,
+                        color: blue,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          'បោះបង់',
+                          style: TextStyle(
+                            color: white,
+                            fontFamily: "OdorMeanChey",
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -94,7 +449,7 @@ class _MainHomePageState extends State<MainHomePage> {
             ),
             child: GestureDetector(
               onTap: () {
-                onSettingPressed(context);
+                _settingModalBottomSheet(context);
               },
               child: const Icon(Icons.settings),
             ),
@@ -167,321 +522,4 @@ class _MainHomePageState extends State<MainHomePage> {
       ),
     );
   }
-}
-
-onSettingPressed(BuildContext context) {
-  bool _isObscure = true;
-  showModalBottomSheet(
-    isScrollControlled: false,
-    isDismissible: true,
-    context: context,
-    backgroundColor: Colors.transparent,
-    builder: (BuildContext builder) {
-      return Container(
-        decoration: const BoxDecoration(
-            color: white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            )),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Center(
-              child: Container(
-                height: 65.0,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.4),
-                      spreadRadius: 0.0,
-                      blurRadius: 1,
-                      offset: const Offset(0, 1),
-                    ),
-                  ],
-                  color: white,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    const SizedBox(
-                      height: 8.0,
-                      width: 0.0,
-                    ),
-                    Center(
-                      child: Container(
-                        height: 4.0,
-                        width: 45.0,
-                        decoration: BoxDecoration(
-                          color: gray,
-                          borderRadius: BorderRadius.circular(7),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(14, 0, 5.0, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          const Text(
-                            'Description',
-                            style: TextStyle(
-                              color: black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: const SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: Icon(
-                                Icons.close,
-                                size: 30,
-                                color: black,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                const SizedBox(width: 0.0, height: 7.0),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 4.0,
-                    horizontal: 10,
-                  ),
-                  child: Expanded(
-                    child: TextField(
-                      obscureText: _isObscure,
-                      autofocus: true,
-                      cursorColor: gray,
-                      onChanged: (value) {
-                        //Do something with the user input.
-                      },
-                      style: const TextStyle(
-                        fontFamily: "OdorMeanChey",
-                        fontSize: 12,
-                        height: 2.0,
-                      ),
-                      decoration: const InputDecoration(
-                        errorMaxLines: 1,
-                        errorStyle: TextStyle(
-                          fontSize: 12.0,
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.redAccent),
-                        ),
-                        hintStyle: TextStyle(
-                          fontFamily: "OdorMeanChey",
-                          fontSize: 12,
-                        ),
-                        hintText: 'ឈ្មោះ',
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 14.0, horizontal: 14.0),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: gray, width: 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: gray, width: 1.5),
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 4.0,
-                    horizontal: 10,
-                  ),
-                  child: Expanded(
-                    child: TextField(
-                      obscureText: _isObscure,
-                      autofocus: true,
-                      cursorColor: gray,
-                      onChanged: (value) {
-                        //Do something with the user input.
-                      },
-                      style: const TextStyle(
-                        fontFamily: "OdorMeanChey",
-                        fontSize: 12,
-                        height: 2.0,
-                      ),
-                      decoration: const InputDecoration(
-                        errorMaxLines: 1,
-                        errorStyle: TextStyle(
-                          fontSize: 12.0,
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.redAccent),
-                        ),
-                        hintStyle: TextStyle(
-                          fontFamily: "OdorMeanChey",
-                          fontSize: 12,
-                        ),
-                        hintText: 'ភេទ',
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 14.0, horizontal: 14.0),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: gray, width: 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: gray, width: 1.5),
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 4.0,
-                    horizontal: 10,
-                  ),
-                  child: Expanded(
-                    child: TextField(
-                      obscureText: _isObscure,
-                      autofocus: true,
-                      cursorColor: gray,
-                      onChanged: (value) {
-                        //Do something with the user input.
-                      },
-                      style: const TextStyle(
-                        fontFamily: "OdorMeanChey",
-                        fontSize: 12,
-                        height: 2.0,
-                      ),
-                      decoration: const InputDecoration(
-                        errorMaxLines: 1,
-                        errorStyle: TextStyle(
-                          fontSize: 12.0,
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.redAccent),
-                        ),
-                        hintStyle: TextStyle(
-                          fontFamily: "OdorMeanChey",
-                          fontSize: 12,
-                        ),
-                        hintText: 'អាយុ',
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 14.0, horizontal: 14.0),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: gray, width: 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: gray, width: 1.5),
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 4.0,
-                    horizontal: 10,
-                  ),
-                  child: Expanded(
-                    child: TextField(
-                      obscureText: _isObscure,
-                      autofocus: true,
-                      cursorColor: gray,
-                      onChanged: (value) {
-                        //Do something with the user input.
-                      },
-                      style: const TextStyle(
-                        fontFamily: "OdorMeanChey",
-                        fontSize: 12,
-                        height: 2.0,
-                      ),
-                      decoration: const InputDecoration(
-                        errorMaxLines: 1,
-                        errorStyle: TextStyle(
-                          fontSize: 12.0,
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.redAccent),
-                        ),
-                        hintStyle: TextStyle(
-                          fontFamily: "OdorMeanChey",
-                          fontSize: 12,
-                        ),
-                        hintText: 'អាស័យដ្ឋាន',
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 14.0, horizontal: 14.0),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: gray, width: 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: gray, width: 1.5),
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 4.0,
-                    horizontal: 10,
-                  ),
-                  child: FlatButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    height: 50,
-                    color: blue,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text(
-                      'ចុចបញ្ចូល',
-                      style: TextStyle(
-                        color: white,
-                        fontFamily: "OdorMeanChey",
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
-      );
-    },
-  );
 }
