@@ -1,6 +1,26 @@
 // 20210929101703
 // https://jsonplaceholder.typicode.com/users
 
+import 'dart:convert';
+
+import 'package:consumer_app/test/test_model.dart';
+import 'package:http/http.dart' as http;
+
+Future fetchMovies() async {
+  List<UserConvert> listUser = [];
+  const url = "https://jsonplaceholder.typicode.com/users";
+  final response = await http.get(Uri.parse(url));
+  if (response.statusCode == 200) {
+    final body = jsonDecode(response.body);
+    for (var item in body) {
+      listUser.add(UserConvert.fromJson(item));
+    }
+  } else {
+    throw Exception("Unable to perform request!");
+  }
+  return listUser;
+}
+
 var listUser = [
   {
     "id": 1,
